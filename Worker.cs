@@ -66,7 +66,7 @@ public class Worker : IHostedService
                     FILE_ID = file.FILE_ID,
                     FILE_LINK = link
                 };
-                _autoDisassemblyContext.Sys_Files.Update(updateFile);
+                _autoDisassemblyContext.Entry(updateFile).State = EntityState.Modified;
                 await _autoDisassemblyContext.SaveChangesAsync();
 
             }
