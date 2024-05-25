@@ -9,5 +9,10 @@ public class AutoDisassemblyContext : DbContext
             : base(options)
     {
     }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Sys_File>()
+            .ToTable(tb => tb.HasTrigger("Sys_Files_UPDATE"));
+    }
     public DbSet<Sys_File> Sys_Files => Set<Sys_File>();
 }
