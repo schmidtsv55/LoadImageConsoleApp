@@ -14,7 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
 .ConfigureServices((host, services) =>
 {
-        services.AddLogging(x => x.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log.txt")));
+        //services.AddLogging(x => x.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log.txt")));
         var AUTO_DISASSEMBLY_STR = host.Configuration["AUTO_DISASSEMBLY_STR"] ?? throw new ArgumentNullException("AUTO_DISASSEMBLY_STR");
         var IMAGE_SERVICE = host.Configuration["IMAGE_SERVICE"] ?? throw new ArgumentNullException("IMAGE_SERVICE");
         var IMAGE_SERVICE_BEARER = host.Configuration["IMAGE_SERVICE_BEARER"] ?? throw new ArgumentNullException("IMAGE_SERVICE_BEARER");
