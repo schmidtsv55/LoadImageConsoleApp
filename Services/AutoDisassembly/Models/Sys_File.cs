@@ -9,6 +9,6 @@ public class Sys_File
     public int? ITEM_ID { get; set; }
     public string? FORM_NAME { get; set; }
     public string? FILE_NAME { get; set; }
-    public string? FILE_DATA { get; set; }
+    public byte[]? FILE_DATA { get; set; }
     public string? FILE_LINK { get; set; }
 }

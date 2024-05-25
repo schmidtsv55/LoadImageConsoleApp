@@ -57,8 +57,7 @@ public class Worker : IHostedService
         {
             try
             {
-                var data = Convert.FromBase64String(file.FILE_DATA!);
-                var link = await _imageService.LoadImageAsync(data, file.FILE_NAME!);
+                var link = await _imageService.LoadImageAsync(file.FILE_DATA, file.FILE_NAME!);
                 file.FILE_LINK = link;
                 await _autoDisassemblyContext.SaveChangesAsync();
             }
