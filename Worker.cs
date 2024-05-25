@@ -61,12 +61,7 @@ public class Worker : IHostedService
             {
 
                 var link = await _imageService.LoadImageAsync(file.FILE_DATA, file.FILE_NAME!);
-                var updateFile = new Sys_File
-                {
-                    FILE_ID = file.FILE_ID,
-                    FILE_LINK = link
-                };
-                _autoDisassemblyContext.Entry(updateFile).State = EntityState.Modified;
+                file.FILE_LINK = link;
                 await _autoDisassemblyContext.SaveChangesAsync();
 
             }
