@@ -59,7 +59,7 @@ public class Worker : IHostedService
             {
                 var link = await _imageService.LoadImageAsync(file.FILE_DATA, file.FILE_NAME!);
                 file.FILE_LINK = link;
-                await _autoDisassemblyContext.SaveChangesAsync();
+                
             }
             catch (System.Exception ex)
             {
@@ -68,6 +68,7 @@ public class Worker : IHostedService
             }
 
         }
+        await _autoDisassemblyContext.SaveChangesAsync();
         if (hasError)
         {
             throw new Exception(sb.ToString());
