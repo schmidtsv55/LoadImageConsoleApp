@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using LoadImageConsoleApp.Services.AutoDisassembly;
+using LoadImageConsoleApp.Services.AutoDisassembly.Models;
 using LoadImageConsoleApp.Services.AutoDisassemblyExtension;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -45,21 +46,29 @@ public class Worker : IHostedService
 
         var files = _autoDisassemblyContext.Sys_Files.FromSql(
         $"""
-            SELECT TOP 1 *
+            SELECT TOP 500 *
                           FROM AutoDisassembly.dbo.Sys_Files
                           WHERE FORM_NAME = 'Items'
                           AND FILE_NAME IS NOT NULL
                           AND (CHARINDEX('.jpg', LOWER(FILE_NAME)) > 0 OR CHARINDEX('.png', LOWER(FILE_NAME)) > 0)
                           AND FILE_LINK IS NULL
                           AND FILE_DATA IS NOT NULL
-        """);
+                          ORDER BY CREATE_DATE DESC
+        """).ToArray();
         foreach (var file in files)
         {
             try
             {
+
                 var link = await _imageService.LoadImageAsync(file.FILE_DATA, file.FILE_NAME!);
-                file.FILE_LINK = link;
-                
+                var updateFile = new Sys_File
+                {
+                    FILE_ID = file.FILE_ID,
+                    FILE_LINK = link
+                };
+                _autoDisassemblyContext.Sys_Files.Update(updateFile);
+                await _autoDisassemblyContext.SaveChangesAsync();
+
             }
             catch (System.Exception ex)
             {
@@ -68,7 +77,7 @@ public class Worker : IHostedService
             }
 
         }
-        await _autoDisassemblyContext.SaveChangesAsync();
+
         if (hasError)
         {
             throw new Exception(sb.ToString());
