@@ -61,6 +61,10 @@ public class Worker : IHostedService
             {
 
                 var link = await _imageService.LoadImageAsync(file.FILE_DATA, file.FILE_NAME!);
+                if (string.IsNullOrWhiteSpace(link))
+                {
+                    throw new Exception("link is empty");
+                }
                 file.FILE_LINK = link;
                 await _autoDisassemblyContext.SaveChangesAsync();
 
