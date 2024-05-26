@@ -46,7 +46,7 @@ public class Worker : IHostedService
 
         var files = _autoDisassemblyContext.Sys_Files.FromSql(
         $"""
-            SELECT TOP 1 *
+            SELECT TOP 500 *
                           FROM AutoDisassembly.dbo.Sys_Files
                           WHERE FORM_NAME = 'Items'
                           AND FILE_NAME IS NOT NULL
@@ -68,6 +68,12 @@ public class Worker : IHostedService
                 file.FILE_LINK = link;
                 await _autoDisassemblyContext.SaveChangesAsync();
 
+            }
+            catch (StopLoadException slex)
+            {
+                sb.AppendLine(slex.ToString());
+                hasError = true;
+                break;
             }
             catch (System.Exception ex)
             {

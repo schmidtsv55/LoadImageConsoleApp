@@ -24,6 +24,10 @@ public class ImagebanService : IImageService
             var json = await response.Content.ReadFromJsonAsync<ResponseLoadImage>();
             if (json?.error?.message != null)
             {
+                if (json?.error?.message?.Contains("Exceeded the daily limit of uploaded images for your account") == true)
+                {
+                     throw new StopLoadException(json.error.message);
+                }
                 throw new Exception(json.error.message);
             }
             return json?.data?.link;
