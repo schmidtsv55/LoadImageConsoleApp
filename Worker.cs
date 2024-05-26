@@ -46,7 +46,7 @@ public class Worker : IHostedService
 
         var files = _autoDisassemblyContext.Sys_Files.FromSql(
         $"""
-            SELECT TOP 500 *
+            SELECT TOP 1 *
                           FROM AutoDisassembly.dbo.Sys_Files
                           WHERE FORM_NAME = 'Items'
                           AND FILE_NAME IS NOT NULL
