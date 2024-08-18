@@ -16,8 +16,8 @@ IHost host = Host.CreateDefaultBuilder(args)
 {
     services.AddLogging(x => x.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log.txt")));
     var AUTO_DISASSEMBLY_STR = host.Configuration["AUTO_DISASSEMBLY_STR"] ?? "data source=.;initial catalog=AutoDisassembly;integrated security=true;Trusted_Connection=True;TrustServerCertificate=True;";
-    var IMAGE_SERVICE = host.Configuration["IMAGE_SERVICE"] ?? "https://api.imageban.ru/v1";
-    var IMAGE_SERVICE_BEARER = host.Configuration["IMAGE_SERVICE_BEARER"] ?? "Myd4XxG84yByWx8vDIBBkXRpPXlRkK9FJmP";
+    //var IMAGE_SERVICE = host.Configuration["IMAGE_SERVICE"] ?? "https://api.imageban.ru/v1";
+    //var IMAGE_SERVICE_BEARER = host.Configuration["IMAGE_SERVICE_BEARER"] ?? "Myd4XxG84yByWx8vDIBBkXRpPXlRkK9FJmP";
     var YANDEX_TOKEN = host.Configuration["YANDEX_TOKEN"] ?? "y0_AgAAAAAVLcBsAADLWwAAAAEOH61TAAA3fUItx4xDbI9_S2piRU6vOdx7fQ";
     var YANDEX_SERVICE = host.Configuration["YANDEX_SERVICE"] ?? "https://cloud-api.yandex.net/";
 
@@ -25,7 +25,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         options =>
         {
             options.BaseAddress = new Uri(YANDEX_SERVICE);
-            options.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", YANDEX_SERVICE);
+            options.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", YANDEX_TOKEN);
         }
     );
     services.AddDbContext<AutoDisassemblyContext>(
