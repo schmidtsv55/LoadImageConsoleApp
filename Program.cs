@@ -14,7 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
 .ConfigureServices((host, services) =>
 {
-    //services.AddLogging(x => x.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log.txt")));
+    services.AddLogging(x => x.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "Log.txt")));
     var AUTO_DISASSEMBLY_STR = host.Configuration["AUTO_DISASSEMBLY_STR"] ?? "data source=.;initial catalog=AutoDisassembly;integrated security=true;Trusted_Connection=True;TrustServerCertificate=True;";
     var IMAGE_SERVICE = host.Configuration["IMAGE_SERVICE"] ?? "https://api.imageban.ru/v1";
     var IMAGE_SERVICE_BEARER = host.Configuration["IMAGE_SERVICE_BEARER"] ?? "Myd4XxG84yByWx8vDIBBkXRpPXlRkK9FJmP";
@@ -43,16 +43,4 @@ await host.StopAsync();
 
 
 
-/*var httpClient = new HttpClient
-{
-    BaseAddress = new Uri("https://api.imageban.ru/v1")
-};
-httpClient.DefaultRequestHeaders.Authorization =
-new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "Myd4XxG84yByWx8vDIBBkXRpPXlRkK9FJmP");
 
-
-IImageService imageService= new ImagebanService(httpClient);
-
-var file = File.ReadAllBytes("../../../Downloads/3.jpg");
-var href = await imageService.LoadImageAsync(file, "3.jpg");
-System.Console.WriteLine(href);*/
