@@ -24,8 +24,8 @@ IHost host = Host.CreateDefaultBuilder(args)
     services.AddHttpClient<IImageService, YaDiskService>(
         options =>
         {
-            options.BaseAddress = new Uri(IMAGE_SERVICE);
-            options.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", IMAGE_SERVICE_BEARER);
+            options.BaseAddress = new Uri(YANDEX_SERVICE);
+            options.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", YANDEX_SERVICE);
         }
     );
     services.AddDbContext<AutoDisassemblyContext>(
