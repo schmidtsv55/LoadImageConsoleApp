@@ -65,6 +65,7 @@ public class Worker : IHostedService
                 {
                     throw new Exception("link is empty");
                 }
+                _logger.LogInformation($"Link {link}");
                 file.FILE_LINK = link;
                 await _autoDisassemblyContext.SaveChangesAsync();
 
